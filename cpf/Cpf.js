@@ -11,7 +11,10 @@ class CpfService {
         return cpf.replace(/\D+/g, '');
     }
 
-    processCpf() {
+    verifyCpf() {
+
+        if(this.isSequence())
+            return false;
 
         const firstNumber = this.getFirstNumber();
         this.cpfToValidate.push(firstNumber);
@@ -20,6 +23,11 @@ class CpfService {
         
         return this.isCpfValid();
        
+    }
+
+    isSequence(){
+        const sequence =  this.cpf[0].repeat(this.cpf.length);
+        return this.cpf === sequence
     }
 
     getFirstNumber() {
@@ -48,7 +56,7 @@ class CpfService {
     }
 
     isCpfValid(){
-        if(this.cpfToValidate.join("") == this.cpfArray.join(""))
+        if(this.cpfToValidate.join("") == this.cpf)
             this.isValid = true;
         else
             this.isValid = false;
@@ -58,4 +66,5 @@ class CpfService {
 }
 
 const cpfService = new CpfService('630.729.413-27');
-console.log(cpfService.processCpf());
+// const cpfService = new CpfService('111.111.111-11');
+console.log(cpfService.verifyCpf());
